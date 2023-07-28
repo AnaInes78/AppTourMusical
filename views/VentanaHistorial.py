@@ -1,69 +1,66 @@
 import tkinter
 from tkinter import * 
 
+import tkinter as tk
+import os
+from tkinter import ttk
+from PIL import ImageTk, ImageColor, ImageDraw
 
 
-# Cargar imagen del disco.
-#img = tkinter.PhotoImage(file="recital.PNG")
-
-# Insertarla en una etiqueta.
-#label = tkinter.Label(ventanaPrin, image=img)
-#label.pack()
 
 color_fondo = '#45322e'
 white = "white"
 
 
 main = Tk()
-main.geometry('600x800')
+main.geometry('800x1000')
 main.title('App Tours Musical')
+
 main.configure(bg=color_fondo, borderwidth=10)
 main.resizable(0,0)
 main.configure(highlightbackground="white", borderwidth=10)
 
+
+
+
  #====FRAMES=====
 login = Frame(main, bg="#45322e", borderwidth=10)
-login.place(width=580, height=440,x=0,y=0)
+login.place(width=600, height=800,x=0,y=0)
 
+
+
+image =tk.PhotoImage("views/images/recital.png", width=800, height=100)
+label = ttk.Label(image=image)
+label.pack()
 
 
 #====Objetos del login====
 
-user_placeholder = StringVar()
-user_placeholder.set('Nombre  de  usuario')
 
-password_placeholder = StringVar()
-password_placeholder.set('Password')
 
-title = Label(login,text="App Tour Musical")
-user = Entry(login)
-password = Entry(login)
+title = Label(login,text="App Tour Musical\n Historial de Usuario", font="roboto, 12", pady=200)
+# mostrar el apellido y nombre del usuario 
+#user = print(id_usuario_usuario.json) Apelido y nombre 
 
-submit = Button(login,text="Iniciar sesion")
-comprar = Button(login,text="Registrarse")
-contacto = Button(login,text="Contacto")
+
+
+volver = Button(login,text="Volver")
 
 
 #==== Configuraciones de objetos de login=====
 
-title.place(x=10,y=10, width=560, height=100)
-title.config(font="Roboto 30 normal", fg='white', bg=color_fondo,borderwidth=10)
+title.place(x=10,y=150, width=560, height=100)
+title.config(font="Roboto 25 normal", fg='white', bg=color_fondo,borderwidth=10)
 
-user.place(x=110,y= 150,width=350, height=50)
-user.config(textvariable=user_placeholder, font="Open_Sans 15 normal",
-        bg=color_fondo,border=5,fg=white, borderwidth=10)
+# Creamos un Frame para el centro
+left_frame = tk.LabelFrame(login, text="Historial de recitales", padx=100, pady=200)
+left_frame.pack(side='left', fill='y')
 
-password.place(x=110,y=220, width=350, height=50)
-password.config(textvariable=password_placeholder, font="Open_Sans 15 normal",
-            bg=color_fondo, fg="white",bd=10,borderwidth=10)
 
-submit.place(x=140, y=290, width=300,height=40)
-submit.config(font="Open_Sans 15 normal",bg="white",fg=color_fondo, borderwidth=10)
+# Entry widget abajo de todo
 
-comprar.place(x=130, y=360, width=150,height=40)
-comprar.config(font="Open_Sans 15 normal",bg="white",fg=color_fondo, borderwidth=10)
 
-contacto.place(x=300, y=360, width=150,height=40)
-contacto.config(font="Open_Sans 15 normal",bg=color_fondo,fg='white',borderwidth=10)
+volver.place(x=300, y=700, width=150,height=40)
+volver.config(font="Open_Sans 15 normal",bg=color_fondo,fg='white',borderwidth=10)
 
 main.mainloop()

@@ -2,6 +2,33 @@ from views.vista_principal import VistaPrincipal
 from models.recital import Recital
 from models.ubicacion import Ubicacion
 from PIL import Image, ImageTk
+import customtkinter
+
+
+customtkinter.set_appearance_mode("dark")
+
+
+class App(customtkinter.CTk):
+    width = 900
+    height = 600
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.title("App Tour Musical")
+        self.geometry(f"{self.width}x{self.height}")
+        self.resizable(False, False)
+
+        # cargar y crear la imagen de fondo
+        current_path = os.path.dirname(os.path.realpath(__file__))
+        self.bg_image = customtkinter.CTkImage(
+            Image.open(current_path + "/recital.png"),
+            size=(self.width, self.height),
+        )
+        self.bg_image_label = customtkinter.CTkLabel(self, image=self.bg_image)
+        self.bg_image_label.grid(row=0, column=0)
+
+
 
 class ControladorPrincipal:
     def __init__(self, root):
@@ -21,7 +48,7 @@ class ControladorPrincipal:
         
     def cargar_imagenes(self):
         for recital in self.recitales:
-            imagen = ImageTk.PhotoImage(Image.open(f"AppToursMusical/views/images/{recital.imagen}").resize((00, 200)))
+            imagen = ImageTk.PhotoImage(Image.open(f"AppTourMusical/views/images/{recital.imagen}").resize((200, 200)))
             self.imagenes.append(imagen)
 
     def cargar_marcadores(self):
@@ -41,7 +68,7 @@ class ControladorPrincipal:
         
         # Busca la ubicación correspondiente al recital seleccionado
         for ubicacion in self.ubicaciones:
-            if ubicacion.id == recital_seleccionado.id_ubicacion:
+            if ubicacion.id == local_seleccionado.id_ubicacion:
                 ubicacion_seleccionada = ubicacion
                 break
         

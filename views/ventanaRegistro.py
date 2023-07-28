@@ -1,7 +1,12 @@
 import tkinter
 from tkinter import * 
+import customtkinter
 
-color_fondo = '#45322e'
+customtkinter.set_appearance_mode("drack")
+
+
+color_fondo="#45322e"
+
 white = "white"
 
 main = Tk()
@@ -11,14 +16,11 @@ main.configure(bg=color_fondo, borderwidth=10)
 main.resizable(0,0)
 main.configure(highlightbackground="white", borderwidth=10)
 
+
  #====FRAMES=====
 login = Frame(main, bg="#45322e", borderwidth=10)
 login.place(width=600, height=800,x=0,y=0)
-
-
-
-#====Objetos del Registro====
-
+   
 Nombreuser_placeholder = StringVar()
 Nombreuser_placeholder.set('Nombre:')
 
@@ -69,6 +71,11 @@ password.config(textvariable=password_placeholder, font="Open_Sans 15 normal",
 submit.place(x=140, y=650, width=300,height=40)
 submit.config(font="Open_Sans 15 normal",bg="white",fg=color_fondo, borderwidth=10)
 
+
+
+
+
+#====Objetos del Registro====
 
 
 
