@@ -1,61 +1,115 @@
+from ast import main
 import tkinter
 import tkinter as tk
-from tkinter import ttk, Radiobutton, Checkbutton, Listbox, END, StringVar
-from tkinter import *
-from typing import Self 
+
 import customtkinter
 import os
 from PIL import Image
+import fondolog 
+import customtkinter
+from PIL import Image
+import os
 
-color_fondo = '#45322e'
-white = "white"
+import ventanaOpciones
+#from vista_principal import VistaPrincipal
+#from VentanaHistorial import VentanaHistorial
 
-
-main = Tk()
-main.geometry('600x800')
-main.title('App Tours Musical- Bienvenido')
-main.configure(bg=color_fondo, borderwidth=10)
-main.resizable(0,0)
-main.configure(highlightbackground="white", borderwidth=10)
-
- #====FRAMES=====
-login = Frame(main, bg="#45322e", borderwidth=10)
-login.place(width=800, height=800,x=0,y=0)
-title = Label(login,text="Bienvenido/a")
+#from controller.controlador_principal import ControladorPrincipal
 
 
-# Creamos un Frame para la barra izquierda
-left_frame = tk.LabelFrame(login, text="Barra Izquierda", padx=20, pady=20)
-left_frame.pack(side='left', fill='y')
+#customtkinter.set_appearance_mode("dark")
+customtkinter.set_default_color_theme("blue") 
 
-submit = Button(login,text="Indice de Recitales")
-Busqueda = Button(login,text="Búsqueda de Recitales ",fg="blue", command=Busqueda)
-Historial = Button(login,text="Historial de Recitales")
+class App(customtkinter.CTk):
+    
+    width = 800
+    height = 600
+    #backgraund="#45322e"
 
-# Creamos un Frame para la parte derecha
-right_frame = tk.Frame(login)
-right_frame.pack(side='right', fill='y')
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-#====Objetos ====
+        self.title("App Tour Musical")
+        self.geometry(f"{self.width}x{self.height}")
+        self.resizable(False, False)
+        #self.configure(bg="#45322e")
 
-
-
-
-
-#==== Configuraciones de objetos de login=====
-
-
-title.place(x=10,y=10, width=560, height=100)
-title.config(font="Roboto 30 normal", fg='white', bg=color_fondo,borderwidth=10)
-
-submit.place(x=140, y=260, width=350,height=40)
-submit.config(font="Open_Sans 15 normal",bg="white",fg=color_fondo, borderwidth=10)
-
-Busqueda.place(x=130, y=360, width=350,height=40)
-Busqueda.config(font="Open_Sans 15 normal",bg="white",fg=color_fondo, borderwidth=10)
-
-Historial.place(x=130, y=460, width=350,height=40)
-Historial.config(font="Open_Sans 15 normal",bg="white",fg=color_fondo, borderwidth=10)
+        # cargar y crear la imagen de fondo
+        current_path = os.path.dirname(os.path.realpath(__file__))
+        self.bg_image = customtkinter.CTkImage(
+            Image.open(current_path + "/recital.png"),
+            size=(self.width, self.height),
+        )
+        self.bg_image_label = customtkinter.CTkLabel(self, image=self.bg_image)
+        self.bg_image_label.grid(row=0, column=0)
 
 
-main.mainloop()
+         # crear el frame de login
+        #self.backgraund= "#45322e"
+        customtkinter.set_default_color_theme("blue") 
+        self.login_frame = customtkinter.CTkFrame(self, corner_radius=10, bg_color="#45322e")
+        self.login_frame.grid(row=0, column=0, sticky="ns",)
+        self.login_label = customtkinter.CTkLabel(
+            self.login_frame, 
+            text="Bienvenidos App Tour Musical \n Recitales Argentina",
+            font=customtkinter.CTkFont("Roboto", size=20, weight="bold"),
+        )
+        self.login_label.grid(row=0, column=0, padx=30, pady=(150, 15))
+        self.username_entry = customtkinter.CTkEntry(
+            self.login_frame, width=200, placeholder_text="nombre de usuario"
+        )
+       
+        
+        self.login_button = customtkinter.CTkButton(
+            self.login_frame, text="Indice de Recitales", command=self.login_event, width=200
+        )
+        self.login_button.grid(row=3, column=0, padx=30, pady=(15, 15))
+
+        
+        self.login_button2 = customtkinter.CTkButton(
+            self.login_frame, text="Búsqueda de recitales", command=self.login_event, width=200
+        )
+        self.login_button2.grid(row=5, column=0, padx=30, pady=(15, 15))
+        self.login_button3 = customtkinter.CTkButton(
+            self.login_frame, text="Historial de Recitales", command=self.login_event, width=200
+        )
+        self.login_button3.grid(row=7, column=0, padx=30, pady=(15, 15))
+        
+        # crear el frame principal
+        self.main_frame = customtkinter.CTkFrame(self, corner_radius=0)
+        self.main_frame.grid_columnconfigure(0, weight=1)
+        self.main_label = customtkinter.CTkLabel(
+            self.main_frame,
+            text="Tour Musical\nPágina Principal",
+            font=customtkinter.CTkFont(size=20, weight="bold"),
+        )
+        self.main_label.grid(row=0, column=0, padx=30, pady=(30, 15))
+        self.back_button = customtkinter.CTkButton(
+            self.main_frame, text="Volver", command=self.back_event, width=200
+        )
+        self.back_button.grid(row=1, column=0, padx=30, pady=(15, 15))
+
+    def login_event(self):
+        print(
+            "Presionó indice de recitales ",
+            self.login_button.get(open.vista_principal),
+            "presionó Búsqueda de recitales :",
+            self.login_button2.get(open.Busqueda),
+            "presionó Historial",
+            self.login_button3.get(open.VentanaHistorial),
+        )
+
+        self.login_frame.grid_forget()  # eliminar el frame de login
+        self.ventanaOpciones.grid(
+            row=0, column=0, sticky="nsew", padx=100
+        )  # mostrar el frame principal
+
+    def back_event(self):
+        self.vista_principal.grid_forget()  # eliminar el frame principal
+        self.login_frame.grid(row=0, column=0, sticky="ns")  # mostrar el frame de login
+
+
+if __name__ == "__main__":
+    app = App()
+    app.mainloop()
+

@@ -1,83 +1,110 @@
 import tkinter
 from tkinter import * 
 import customtkinter
+from ast import main
+
+import tkinter as tk
+
+import customtkinter
+import os
+from PIL import Image
+import fondolog 
+import customtkinter
+from PIL import Image
+import os
 
 customtkinter.set_appearance_mode("drack")
 
 
-color_fondo="#45322e"
-
-white = "white"
-
-main = Tk()
-main.geometry('600x800')
-main.title('App Tours Musical')
-main.configure(bg=color_fondo, borderwidth=10)
-main.resizable(0,0)
-main.configure(highlightbackground="white", borderwidth=10)
 
 
- #====FRAMES=====
-login = Frame(main, bg="#45322e", borderwidth=10)
-login.place(width=600, height=800,x=0,y=0)
-   
-Nombreuser_placeholder = StringVar()
-Nombreuser_placeholder.set('Nombre:')
+class App(customtkinter.CTk):
+    
+    width = 800
+    height = 600
+    #backgraund="#45322e"
 
-Apellidouser_placeholder = StringVar()
-Apellidouser_placeholder.set('Apellido:')
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-Email_placeholder = StringVar()
-Email_placeholder.set('email: ')
+        self.title("App Tour Musical Registro")
+        self.geometry(f"{self.width}x{self.height}")
+        self.resizable(False, False)
+        #self.configure(bg="#45322e")
 
-
-password_placeholder = StringVar()
-password_placeholder.set('Password')
-
-
-
-title = Label(login,text="Registro de Usuarios ")
-Nombreuser = Entry(login)
-Apellidouser = Entry(login)
-Email = Entry(login)
-password = Entry(login)
-
-submit = Button(login,text="Crear Usuario")
+        # cargar y crear la imagen de fondo
+        current_path = os.path.dirname(os.path.realpath(__file__))
+        self.bg_image = customtkinter.CTkImage(
+            Image.open(current_path + "/recital.png"),
+            size=(self.width, self.height),
+        )
+        self.bg_image_label = customtkinter.CTkLabel(self, image=self.bg_image)
+        self.bg_image_label.grid(row=0, column=0)
 
 
+         # crear el frame de login
+        #self.backgraund= "#45322e"
+        customtkinter.set_default_color_theme("blue") 
+        self.login_frame = customtkinter.CTkFrame(self, corner_radius=10, bg_color="#45322e")
+        self.login_frame.grid(row=0, column=0, sticky="ns",)
+        self.login_label = customtkinter.CTkLabel(
+            self.login_frame, 
+            text="Bienvenidos App Tour Musical \n Registro de Usuario",
+            font=customtkinter.CTkFont("Roboto", size=20, weight="bold"),
+        )
+        self.login_label.grid(row=0, column=0, padx=30, pady=(150, 15))
+        self.username_entry = customtkinter.CTkEntry(
+            self.login_frame, width=200, placeholder_text="Nombre de Usuario"
+            
+        )
+        self.username_entry.grid(row=1, column=0, padx=30, pady=(15, 15))
 
+        self.password1_entry = customtkinter.CTkEntry(
+            self.login_frame, width=200, show="*", placeholder_text="Contraseña"
+        )
+        self.password1_entry.grid(row=2, column=0, padx=30, pady=(0, 15))
 
-#==== Configuraciones de objetos de login=====
+        
+        self.password2_entry = customtkinter.CTkEntry(
+            self.login_frame, width=200, show="*", placeholder_text="Confirmar Contraseña"
+        )
+        self.password2_entry.grid(row=3, column=0, padx=30, pady=(15, 15))
+       
+        self.login_button = customtkinter.CTkButton(
+            self.login_frame, text="Crear Usuario", command=self.login_event, width=200
+        )
+        self.login_button.grid(row=4, column=0, padx=30, pady=(15, 15))
+                 
+        # crear el frame principal
+        self.main_frame = customtkinter.CTkFrame(self, corner_radius=0)
+        self.main_frame.grid_columnconfigure(0, weight=1)
+        self.main_label = customtkinter.CTkLabel(
+            self.main_frame,
+            text="Tour Musical\n Registro de Usuarios",
+            font=customtkinter.CTkFont(size=20, weight="bold"),
+        )
+        self.main_label.grid(row=30, column=0, padx=30, pady=(30, 15))
+        self.back_button = customtkinter.CTkButton(
+            self.main_frame, text="Volver", command=self.back_event, width=200
+        )
+        self.back_button.grid(row=6, column=0, padx=30, pady=(15, 15))
 
-title.place(x=10,y=10, width=560, height=100)
-title.config(font="Roboto 30 normal", fg='white', bg=color_fondo, borderwidth=10)
+    def login_event(self):
+        print(
+            "Presionó crear usuario ",
+            self.login_button.get(open.vista_principal),
+                   
+        )
 
-Nombreuser.place(x=110,y= 150,width=350, height=50)
-Nombreuser.config(textvariable=Nombreuser_placeholder, font="Open_Sans 15 normal",
-        bg=color_fondo,border=5,fg=white, borderwidth=10)
+        self.login_frame.grid_forget()  # eliminar el frame de login
+        self.ventanaOpciones.grid(
+            row=0, column=0, sticky="nsew", padx=100
+        )  # mostrar el frame principal
 
-Apellidouser.place(x=110,y= 250,width=350, height=50)
-Apellidouser.config(textvariable=Apellidouser_placeholder, font="Open_Sans 15 normal",
-        bg=color_fondo,border=5,fg=white, borderwidth=10)
+    def back_event(self):
+        self.vista_principal.grid_forget()  # eliminar el frame principal
+        self.login_frame.grid(row=0, column=0, sticky="ns")  # mostrar el frame de login
 
-Email.place(x=110,y= 350,width=350, height=50)
-Email.config(textvariable=Email_placeholder, font="Open_Sans 15 normal",
-        bg=color_fondo,border=5,fg=white, borderwidth=10)
-
-password.place(x=110,y=450, width=350, height=50)
-password.config(textvariable=password_placeholder, font="Open_Sans 15 normal",
-            bg=color_fondo, fg="white",bd=10,borderwidth=10)
-
-submit.place(x=140, y=650, width=300,height=40)
-submit.config(font="Open_Sans 15 normal",bg="white",fg=color_fondo, borderwidth=10)
-
-
-
-
-
-#====Objetos del Registro====
-
-
-
-
-main.mainloop()
+if __name__ == "__main__":
+    app = App()
+    app.mainloop()
