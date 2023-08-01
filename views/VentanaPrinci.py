@@ -1,5 +1,5 @@
-import tkinter
-from tkinter import * 
+import tkinter as tk
+from tkinter import *
 
 color_fondo = '#45322e'
 white = "white"
@@ -22,11 +22,49 @@ login.place(width=600, height=800,x=0,y=0)
 
 
 title = Label(login,text="Bienvenido/a")
+#... enlaces ..#
+def abrir_ventana_indice_recitales():
+    main.withdraw()  # Ocultar la ventana de inicio
+    ventana_indice_recitales = tk.Toplevel(main)
+    VentanaIndiceRecitales(ventana_indice_recitales)
+class VentanaIndiceRecitales:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Índice de Recitales")
+        # Aquí puedes agregar elementos y funcionalidades para mostrar el índice de recitales
+
+# ...
+
+class VentanaBusquedaRecitales:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Búsqueda de Recitales")
+        # Aquí puedes agregar elementos y funcionalidades para realizar la búsqueda de recitales
+
+# ...
+
+def abrir_ventana_busqueda_recitales():
+    main.withdraw()  # Ocultar la ventana de inicio
+    ventana_busqueda_recitales = tk.Toplevel(main)
+    VentanaBusquedaRecitales(ventana_busqueda_recitales)
+
+class VentanaHistorialRecitales:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Historial de Recitales")
+        # Aquí puedes agregar elementos y funcionalidades para mostrar el historial de recitales
+
+# ...
+
+def abrir_ventana_historial_recitales():
+    main.withdraw()  # Ocultar la ventana de inicio
+    ventana_historial_recitales = tk.Toplevel(main)
+    VentanaHistorialRecitales(ventana_historial_recitales)
 
 
-submit = Button(login,text="Indice de Recitales")
-Busqueda = Button(login,text="Búsqueda de Recitales ")
-Historial = Button(login,text="Historial de Recitales")
+submit = Button(login,text="Indice de Recitales", command=abrir_ventana_indice_recitales)
+Busqueda = Button(login,text="Búsqueda de Recitales ",command=abrir_ventana_busqueda_recitales)
+Historial = Button(login,text="Historial de Recitales",command=abrir_ventana_historial_recitales)
 
 
 #==== Configuraciones de objetos de login=====
@@ -43,6 +81,5 @@ Busqueda.config(font="Open_Sans 15 normal",bg="white",fg=color_fondo, borderwidt
 
 Historial.place(x=130, y=460, width=350,height=40)
 Historial.config(font="Open_Sans 15 normal",bg="white",fg=color_fondo, borderwidth=10)
-
 
 main.mainloop()
